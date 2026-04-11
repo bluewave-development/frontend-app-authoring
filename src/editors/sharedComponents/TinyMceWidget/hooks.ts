@@ -269,6 +269,7 @@ export const openModalWithSelectedImage = ({
     altText: tinyMceHTML.alt,
     width,
     height,
+    classList: Array.from(tinyMceHTML.classList ?? []),
   });
 
   openImgModal();
