@@ -56,9 +56,9 @@ describe('ImageUploadModal', () => {
         alt: settings.altText,
         width: settings.dimensions.width,
         height: settings.dimensions.height,
-        class: ''
+        class: '',
       };
-      const testImgTag = ({expected, settings}) => {
+      const testImgTag = ({ expected, settings }) => {
         const output = hooks.imgTag({
           settings,
           selection,
@@ -69,13 +69,13 @@ describe('ImageUploadModal', () => {
         expect(output).toEqual(`<img ${propsString(expected)} />`);
       };
       test.each([
-          [ settings, expected ],
-          [ {...settings, isDecorative: true}, {...expected, alt: ''} ],
-          [ {...settings, classList: []}, {...expected} ],
-          [ {...settings, classList: null}, {...expected} ],
-          [ {...settings, classList: undefined}, {...expected} ],
-          [ {...settings, classList: ['class1', 'class2']}, {...expected, class: 'class1 class2'} ],
-          [ {...settings, title: "some title"}, {...expected, title: 'some title'} ],
+        [settings, expected],
+        [{ ...settings, isDecorative: true }, { ...expected, alt: '' }],
+        [{ ...settings, classList: [] }, { ...expected }],
+        [{ ...settings, classList: null }, { ...expected }],
+        [{ ...settings, classList: undefined }, { ...expected }],
+        [{ ...settings, classList: ['class1', 'class2'] }, { ...expected, class: 'class1 class2' }],
+        [{ ...settings, title: 'some title' }, { ...expected, title: 'some title' }],
       ])('It returns a html string which matches an image tag', (settings, expected) => {
         testImgTag({ settings, expected });
       });
@@ -186,6 +186,11 @@ describe('ImageUploadModal', () => {
     test('snapshot: no selection (Select Image Modal)', () => {
       const { container } = render(<ImageUploadModal {...props} selection={null} />);
       expect(container.querySelector('SelectImageModal')).toBeInTheDocument();
+    });
+  });
+  describe('propsString', () => {
+    it('escapes double quotes in attribute values', () => {
+      expect(propsString({ alt: 'some "quoted" text' })).toEqual('alt="some &quot;quoted&quot; text"');
     });
   });
 });
