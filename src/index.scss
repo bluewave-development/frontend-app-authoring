@@ -70,3 +70,18 @@ mark {
 .border-left-purple {
   border-left: 3px solid #5E35B1 !important;
 }
+
+
+// Resetea todos los enlaces en ActionRow dentro de Authoring (header, footer, etc.)
+.pgn__action-row a {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: inherit !important;
+
+  &:hover,
+  &:focus {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: inherit !important;
+  }
+}
