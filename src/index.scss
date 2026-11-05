@@ -71,7 +71,7 @@ mark {
   border-left: 3px solid #5E35B1 !important;
 }
 
-
+// [BWA Custom]
 // Resetea todos los enlaces en ActionRow dentro de Authoring (header, footer, etc.)
 .pgn__action-row a {
   background-color: transparent !important;
@@ -84,4 +84,10 @@ mark {
     border-color: transparent !important;
     color: inherit !important;
   }
+}
+
+//Cuadro azul
+#root .col-md-4 {
+  border-color: transparent !important;
+  height: min-content;
 }
