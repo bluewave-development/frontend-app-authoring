@@ -23,15 +23,10 @@ const UnitTab = ({
     isVisibleToStaffOnly,
     selectedPartitionIndex,
     selectedGroups,
-    discussionEnabled,
   } = values;
 
   const handleVisibilityChange = (e) => {
     setFieldValue('isVisibleToStaffOnly', e.target.checked);
-  };
-
-  const handleDiscussionChange = (e) => {
-    setFieldValue('discussionEnabled', e.target.checked);
   };
 
   const handleSelect = (e) => {
@@ -145,16 +140,7 @@ const UnitTab = ({
           )}
         </Form.Group>
       )}
-      {!isXBlockComponent && (
-        <>
-          <h4 className="mt-4"><FormattedMessage {...messages.discussionEnabledSectionTitle} /></h4>
-          <hr />
-          <Form.Checkbox checked={discussionEnabled} onChange={handleDiscussionChange}>
-            <FormattedMessage {...messages.discussionEnabledCheckbox} />
-          </Form.Checkbox>
-          <p className="x-small font-weight-bold"><FormattedMessage {...messages.discussionEnabledDescription} /></p>
-        </>
-      )}
+      {/* [BW Custom] Sección Discussion / Enable discussion oculta en la configuración de unidad */}
     </>
   );
 };
