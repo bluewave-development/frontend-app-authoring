@@ -2,22 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import {
-  Button,
   Container,
   Layout,
 } from '@openedx/paragon';
-import { Add as IconAdd } from '@openedx/paragon/icons';
 
 import InternetConnectionAlert from '../generic/internet-connection-alert';
 import { useModel } from '../generic/model-store';
 import SubHeader from '../generic/sub-header/SubHeader';
-import { USER_ROLES } from '../constants';
 import messages from './messages';
 import CourseTeamSideBar from './course-team-sidebar/CourseTeamSidebar';
-import AddUserForm from './add-user-form/AddUserForm';
-import AddTeamMember from './add-team-member/AddTeamMember';
-import CourseTeamMember from './course-team-member/CourseTeamMember';
-import InfoModal from './info-modal/InfoModal';
 import { useCourseTeam } from './hooks';
 import getPageHeadTitle from '../generic/utils';
 import ConnectionErrorAlert from '../generic/ConnectionErrorAlert';
@@ -29,31 +22,11 @@ const CourseTeam = ({ courseId }) => {
   document.title = getPageHeadTitle(courseDetails?.name, intl.formatMessage(messages.headingTitle));
 
   const {
-    modalType,
-    errorMessage,
-    courseName,
-    currentEmail,
-    courseTeamUsers,
-    currentUserEmail,
     isLoading,
     isLoadingDenied,
-    isSingleAdmin,
-    isFormVisible,
     isQueryPending,
-    isAllowActions,
-    isInfoModalOpen,
     isOwnershipHint,
-    isShowAddTeamMember,
-    isShowInitialSidebar,
-    isShowUserFilledSidebar,
     isInternetConnectionAlertFailed,
-    openForm,
-    hideForm,
-    closeInfoModal,
-    handleAddUserSubmit,
-    handleOpenDeleteModal,
-    handleDeleteUserSubmit,
-    handleChangeRoleUserSubmit,
     handleInternetConnectionFailed,
   } = useCourseTeam({ intl, courseId });
 
@@ -87,75 +60,22 @@ const CourseTeam = ({ courseId }) => {
                   <SubHeader
                     title={intl.formatMessage(messages.headingTitle)}
                     subtitle={intl.formatMessage(messages.headingSubtitle)}
-                    headerActions={isAllowActions && (
-                      <Button
-                        variant="primary"
-                        iconBefore={IconAdd}
-                        size="sm"
-                        onClick={openForm}
-                        disabled={isFormVisible}
-                      >
-                        {intl.formatMessage(messages.addNewMemberButton)}
-                      </Button>
-                    )}
                   />
                   <section className="course-team-section">
                     <div className="members-container">
-                      {isFormVisible && (
-                        <AddUserForm
-                          onSubmit={handleAddUserSubmit}
-                          onCancel={hideForm}
-                        />
-                      )}
-                      {courseTeamUsers.length ? courseTeamUsers.map(({ username, role, email }) => (
-                        <CourseTeamMember
-                          key={email}
-                          userName={username}
-                          role={role}
-                          email={email}
-                          currentUserEmail={currentUserEmail || ''}
-                          isAllowActions={isAllowActions}
-                          isHideActions={role === USER_ROLES.admin && isSingleAdmin}
-                          onChangeRole={handleChangeRoleUserSubmit}
-                          onDelete={handleOpenDeleteModal}
-                        />
-                      )) : null}
-                      {isShowAddTeamMember && (
-                        <AddTeamMember
-                          onFormOpen={openForm}
-                          isButtonDisable={isFormVisible}
-                        />
-                      )}
+                      <p className="mt-2">
+                        {intl.formatMessage(messages.sectionNotAvailableBW)}
+                      </p>
                     </div>
-                    {isShowInitialSidebar && (
-                      <div className="sidebar-container">
-                        <CourseTeamSideBar
-                          courseId={courseId}
-                          isOwnershipHint={isOwnershipHint}
-                          isShowInitialSidebar={isShowInitialSidebar}
-                        />
-                      </div>
-                    )}
-                    <InfoModal
-                      isOpen={isInfoModalOpen}
-                      close={closeInfoModal}
-                      currentEmail={currentEmail}
-                      errorMessage={errorMessage}
-                      courseName={courseName}
-                      modalType={modalType}
-                      onDeleteSubmit={handleDeleteUserSubmit}
-                    />
                   </section>
                 </div>
               </article>
             </Layout.Element>
             <Layout.Element>
-              {isShowUserFilledSidebar && (
-                <CourseTeamSideBar
-                  courseId={courseId}
-                  isOwnershipHint={isOwnershipHint}
-                />
-              )}
+              <CourseTeamSideBar
+                courseId={courseId}
+                isOwnershipHint={isOwnershipHint}
+              />
             </Layout.Element>
           </Layout>
         </section>
